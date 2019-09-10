@@ -1,4 +1,4 @@
-# Running a Sprning Boot Application in EC2.
+# Running a Spring Boot Application in EC2.
 
 In this article we can see how to run a Spring Boot application in AWS-EC2.
 
@@ -45,7 +45,138 @@ Now navigate to user home by giving command **pwd**
 
 ![EC2-User-Home](https://user-images.githubusercontent.com/54984988/64635008-a1a14280-d3cc-11e9-88a2-dafa8709a2ac.PNG)
 
+## Install Java in EC2.
+
+Always update your EC2 AMI if you are creating for first time.
+
+**sudo yum update -y**
+
+![Ec2-Update](https://user-images.githubusercontent.com/54984988/64639884-cc909400-d3d6-11e9-8c6c-7d1e2785ea12.PNG)
+
+This will update the EC2 AMI image.
+
+Depending on type of EC2 instance AMI java will be available or not available by default. If you choose most recent AMI when launching your EC2 java won't be available by default. In this case first we need to install Java 1.8 in EC2.
+
+To check does EC2 instance have java installed type **java --version** from your EC2 home directory in putty.
+
+![JavaCheck](https://user-images.githubusercontent.com/54984988/64639471-e8476a80-d3d5-11e9-96d2-8346678c6621.PNG)
+
+In this case as Java is not available its giving error.
+
+To install java execute below command.
+
+**sudo yum install java-1.8.0 -y**
+
+This install openJDK for java-1.8 in your EC2 instance.
+
+
 ## Moving application to EC2 and Running.
+
+To run a Spring Boot application in EC2 we have to move the application jar (**signup-1.0.0-SNAPSHOT.jar**) inside EC2. This can be achieved in different ways.
+We will use Git-bash to move this file to EC2.
+
+
+If you don't have Git-bash already in your machine download it from below site.
+
+https://git-scm.com/downloads
+
+Open your Git-bash terminal. To open in windows start search type **Git Bash**
+
+From this terminal we will do a secure copy to our EC2 instance which is running on AWS.
+
+To connect our EC2 instance from bash we need to use below command.
+
+scp -i <Path/of/your/pemfile> <Path/of/your/appfile> ec2-user@ec2-54-185-61-202.us-west-2.compute.amazonaws.com:~
+
+In this 
+
+**Path/of/your/pemfile ->**  Path in your local machine where .pem file of your security-keypair. Either you can give complete path or in bash shell navigate to that path and give the file name here when executing this command.
+
+**Path/of/your/appfile ->** Path of your application in your local machine.signup-1.0.0-SNAPSHOT.jar complete path.
+
+ec2-user@**ec2-54-185-61-202.us-west-2.compute.amazonaws.com ->** ec2-54-185-61-202.us-west-2.compute.amazonaws.com is your instance **Public DNS (IPv4)** name
+
+When we execute this command it will move the file to EC2 user home directory from our local machince.
+
+Before moving this file to EC2 just login to EC2 in putty as following above given steps and execute command **ls -ltr**
+This will list existing files in the user home directory.
+
+![EC2-Home-ls](https://user-images.githubusercontent.com/54984988/64637548-08752a80-d3d2-11e9-8865-7bc8fb0f00ba.PNG)
+
+In this case we don't have any file in home directory.
+
+Now lets move the **signup-1.0.0-SNAPSHOT.jar** from local to EC2 using **Git Bash**
+
+I have my security-keypair file in my **C:\Users\UthirNew\Desktop\AWS_Learning\EC2** so in my Git bash shell I have naviate to this folder.
+
+**Tip:** In bash shell folder navigation should be represented using forward slash.
+
+Type from your current directory to your .pem file directory and hit enter. 
+
+**cd C:/Users/UthirNew/Desktop/AWS_Learning/EC2**
+
+![GitBash-pemnavig](https://user-images.githubusercontent.com/54984988/64638174-4c1c6400-d3d3-11e9-81ec-88f6623fa0e0.PNG)
+
+Now execute below command. Make sure you change this command path as per your local machine.
+
+**scp -i http-server-ec2-keypair.pem C:/TechGiants/springbootapps/signup/target/signup-1.0.0-SNAPSHOT.jar ec2-user@ec2-54-191-163-208.us-west-2.compute.amazonaws.com:~**
+
+After executing this command it will prompt for confirmation to connect.  Type yes to get connect and move the file.
+
+**Are you sure you want to continue connecting (yes/no/[fingerprint])?**
+
+![Bash-FileMove](https://user-images.githubusercontent.com/54984988/64638543-f3999680-d3d3-11e9-8084-8cbdf1bd8a17.PNG)
+
+If everything is ok you can see successful transfer of  your jar or file to EC2 instance. To confirm the same login to EC2 instance and execute **ls -ltr** command from user home directory. Now you can see **signup-1.0.0-SNAPSHOT.jar**
+
+![JarInEC2](https://user-images.githubusercontent.com/54984988/64638925-c4375980-d3d4-11e9-8ca8-c1eeb17b5470.PNG)
+
+Now we are all set to run this application in EC2.
+
+To Run this applocation run below command from the directory in which application jar file is placed. In this case **/home/ec2-user**
+
+**java -jar signup-1.0.0-SNAPSHOT.jar**
+
+![AppLaunch-EC2](https://user-images.githubusercontent.com/54984988/64640406-e7afd380-d3d7-11e9-9bf3-c3f95288e776.PNG)
+
+You can see successful launch of the application. As we configured port 8081 in **application.properties** in the application code this app will be started in 8081. 
+
+
+Also we have created a Custom TCP rule in EC2 security-group with port 8081 with this we can access this app using below URL.
+
+http://54.191.163.208:8081/usersignup/signup?username=test
+
+**http ->**  Protocal
+
+**54.191.163.208 ->** EC2 instance public IPv4
+
+**8081 ->** Application port defined in **application.properties**
+
+**/usersignup ->** Application Contect Root defined in **application.properties**
+
+**/signup?username=test** Resource path with Query param defined in application code.
+
+![App-Page](https://user-images.githubusercontent.com/54984988/64641020-46298180-d3d9-11e9-8227-92172a5dec41.PNG)
+
+
+**Note:** If you want this application to be in running state you have to make sure not closing your Putty also should not user Cntrl+C.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
