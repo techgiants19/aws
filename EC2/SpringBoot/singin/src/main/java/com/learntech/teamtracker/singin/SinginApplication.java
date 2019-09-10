@@ -1,0 +1,13 @@
+package com.learntech.teamtracker.singin;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SinginApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SinginApplication.class, args);
+	}
+
+}
