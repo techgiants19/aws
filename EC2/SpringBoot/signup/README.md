@@ -25,9 +25,32 @@ Create/Update a security group by adding a new Custom TCP rule with port 8081. I
 
 With this security group configuration launch your EC2.
 
-
+![spring-boot-EC2](https://user-images.githubusercontent.com/54984988/64633787-df509c00-d3c9-11e9-8faf-2b6e92472eb2.PNG)
 
 After launching EC2 connect to it using putty by using **security-keypair** in Windows. And navigate to ec2-user home page.
+
+To Connect EC2 open putty and give your EC2 instance public ipv4 address as ec2-iser@54.191.163.208
+
+![EC2-Putty](https://user-images.githubusercontent.com/54984988/64634588-939ef200-d3cb-11e9-9d75-eb0e422efe93.PNG)
+
+Then configure your IAM user **security-keypair** which you have downloaded when createing account or user in putty as like bleow.
+
+![EC2-KeyPair](https://user-images.githubusercontent.com/54984988/64634811-1a53cf00-d3cc-11e9-9083-58364857d9f4.PNG)
+
+After configuring this keypair click open you can see EC2 instance home if all your configuration is fine.
+
+![EC2-LogIn](https://user-images.githubusercontent.com/54984988/64634900-4f602180-d3cc-11e9-8c91-b1f77a29faaf.PNG)
+
+Now navigate to user home by giving command **pwd**
+
+![EC2-User-Home](https://user-images.githubusercontent.com/54984988/64635008-a1a14280-d3cc-11e9-88a2-dafa8709a2ac.PNG)
+
+## Moving application to EC2 and Running.
+
+
+
+
+
 
 
 
