@@ -17,3 +17,17 @@ This will give output as **Welcome to SignUp Page**
 
 ## Setting up AWS-EC2
 
+To run this application in 8081 port in EC2 we need to open that port in EC2. This can be achieved adding a custom TCP rule with port 8081 in EC2 security group.
+
+Create/Update a security group by adding a new Custom TCP rule with port 8081. In this case a new security group **spring-boot-app-sec-group** is created with port 8081.
+
+![Security-Grp](https://user-images.githubusercontent.com/54984988/64633163-aebc3280-d3c8-11e9-985e-387555edc7b9.PNG)
+
+With this security group configuration launch your EC2.
+
+
+
+After launching EC2 connect to it using putty by using **security-keypair** in Windows. And navigate to ec2-user home page.
+
+
+
