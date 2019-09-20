@@ -1,4 +1,4 @@
-# Runing Spring Boot Application in EC2 and routing traffic through AWS-ELB Application Load Balancer
+# Runing Spring Boot Application in EC2 and routing traffic through AWS-ALB Application Load Balancer
 
 This article will cover following use cases.
 
