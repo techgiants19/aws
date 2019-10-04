@@ -1,6 +1,6 @@
 # AWS
 
-This repository will give resources and documents related for AWS
+This repository will give resources and documents related to AWS
 
 1. [Running a Spring Boot application in EC2](https://github.com/techgiants19/aws/tree/master/EC2/SpringBoot/signup)
 
