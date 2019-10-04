@@ -81,7 +81,7 @@ In our case we have to route traffic to port 8081 using HTTP as we have one of o
 
 ![signup-sec-grp](https://user-images.githubusercontent.com/54984988/64927180-4f4d9080-d7d5-11e9-89c6-3e12b56ab162.PNG)
 
-Also we have to specify health check URL for our application. It should be valid URL.In our case it will be **/actuator/health**
+Also we have to specify health check URL for our application. It should be valid URL.In our case it will be **/usersignup/actuator/health**
 As we are using Spring Boot 2.x this our health url.
 
 
